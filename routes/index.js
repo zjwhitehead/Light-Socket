@@ -1,22 +1,22 @@
 var express = require('express');
 var router = express.Router();
-//var GPIO = require('onoff').Gpio;
+var GPIO = require('onoff').Gpio;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Pi Control' });
 });
 
-router.get('/toggle-led-off', function(req, res, next) {
-	//var    led = new GPIO(14, 'out');
-	//led.writeSync(0);
-  	res.render('index', { alert: 'Toggled off' });
+router.get('/toggle-led/off', function(req, res, next) {
+	var    led = new GPIO(14, 'out');
+	led.writeSync(0);
+  	res.json({"success":"true", "led":"off"});
 });
 
-router.get('/toggle-led-on', function(req, res, next) {
-	//var    led = new GPIO(14, 'out');
-	//led.writeSync(1);
-  	res.render('index', { alert: 'Toggled on' });
+router.get('/toggle-led/on', function(req, res, next) {
+	var    led = new GPIO(14, 'out');
+	led.writeSync(1);
+  	res.json({"success":"true", "led":"on"});
 });
 
 module.exports = router;

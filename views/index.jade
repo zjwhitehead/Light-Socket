@@ -1,14 +1,13 @@
 extends layout
 
 block content
-  if alert
-    .alert.alert-success.alert-dismissible(role='alert')
-      button.close(type='button', data-dismiss='alert', aria-label='Close')
-          span(aria-hidden='true') &times;
-        strong=alert
   h1 Pi Control
   p You can control Zach's Raspberry Pi from this page
   br
-  a(href="/toggle-led-on") Turn LED on
+  p LED Control
+  .btn-group  
+    button(class="btn btn-default" id="led-on") On
+    button(class="btn btn-default" id="led-off") Off
   br
-  a(href="/toggle-led-off") Turn LED off
+  br
+  .alerts
