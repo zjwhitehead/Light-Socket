@@ -1,15 +1,17 @@
 extends layout
 
 block content
-  h1 Pi Control
-  p You can control Zach's Raspberry Pi from this page
-  br
-  p LED Control
-  .btn-group  
-    button(class="btn btn-default" id="led-on") On
-    button(class="btn btn-default" id="led-off") Off
-  br
-  br
-  .alerts
+  .row
+    .col-md-12
+      h1 Pi Control 
+      h4 You can control Zach's Raspberry Pi from this page
+  .row
+    .col-md-4
+      h3 LED Control
+      .btn-group
+        button(class="btn btn-default" id="led-on") On
+        button(class="btn btn-default" id="led-off") Off
+    .col-md-4
+      h3 LED Status
+      i(id="led").fa.fa-3x.fa-lightbulb-o
   script(src='/javascripts/pi.js', type='text/javascript')
-

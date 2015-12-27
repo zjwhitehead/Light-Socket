@@ -14,7 +14,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//var GPIO = require('onoff').Gpio;
+var GPIO = require('onoff').Gpio;
 
 
 var routes = require('./routes/index')(io);
@@ -45,14 +45,15 @@ app.use(function(req, res, next) {
 
 io.on('connection', function(socket) { 
     socket.on('led control', function(msg){
+      //use the GPIO pin number your led is connected to
+      var led = new GPIO(14, 'out');
+
       if (msg == "on") {
-      //var    led = new GPIO(14, 'out');
-      //led.writeSync(1);
+        led.writeSync(1);
         console.log('turned on ');
       }
       else if(msg == "off"){
-        //var    led = new GPIO(14, 'out');
-        //led.writeSync(0);
+        led.writeSync(0);
         console.log('turned off');
       }
       io.emit('led message', msg);
