@@ -14,6 +14,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//var GPIO = require('onoff').Gpio;
+
 
 var routes = require('./routes/index')(io);
 var users = require('./routes/users');
@@ -40,6 +42,24 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+io.on('connection', function(socket) { 
+    socket.on('led control', function(msg){
+      if (msg == "on") {
+      //var    led = new GPIO(14, 'out');
+      //led.writeSync(1);
+        console.log('turned on ');
+      }
+      else if(msg == "off"){
+        //var    led = new GPIO(14, 'out');
+        //led.writeSync(0);
+        console.log('turned off');
+      }
+      io.emit('led message', msg);
+  });
+});
+
+
 // error handlers
 
 // development error handler
@@ -64,10 +84,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// socket.io events
-io.on( "connection", function( socket )
-{
-    console.log( "A user connected" );
-});
+
 
 module.exports = app;
