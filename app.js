@@ -1,14 +1,22 @@
-var express = require('express');
+var express      = require( "express"   );
+var socket_io    = require( "socket.io" );
+
+// Express
+var app          = express();
+
+// Socket.io
+var io           = socket_io();
+app.io           = io;
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
-var app = express();
+var routes = require('./routes/index')(io);
+var users = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,5 +64,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// socket.io events
+io.on( "connection", function( socket )
+{
+    console.log( "A user connected" );
+});
 
 module.exports = app;
