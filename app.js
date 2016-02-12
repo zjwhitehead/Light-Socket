@@ -42,6 +42,19 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+var Wemo = require('wemo-client');
+var wemo = new Wemo();
+var wemoName;
+var wemoClient;
+
+wemo.discover(function(deviceInfo) {
+  name = deviceInfo.friendlyName;
+  console.log('Wemo Device Found: %j', name);
+
+  // Get the client for the found device
+  wemoClient = wemo.client(deviceInfo);
+});
+
 
 io.on('connection', function(socket) { 
     socket.on('led control', function(msg){
@@ -57,6 +70,29 @@ io.on('connection', function(socket) {
         console.log('turned off');
       }
       io.emit('led message', msg);
+    });
+
+    socket.on('wemo control', function(msg){
+      if (msg == "on") {
+       // led.writeSync(1);
+        wemoClient.setBinaryState(1);
+        console.log('turned on ');
+
+      }
+      else if(msg == "off"){
+       // led.writeSync(0);
+        wemoClient.setBinaryState(0);
+
+        console.log('turned off');
+      }
+
+      wemoClient.on('binaryState', function(value) {
+        if (value == 1) {
+          io.emit('wemo message', "on");
+        }else{
+          io.emit('wemo message', "off");
+        }
+      });
   });
 });
 

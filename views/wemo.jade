@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .row
+    .col-md-12
+      h1 Wemo
+  .row
+    .col-md-4
+      h3 Wemo Control
+      .btn-group
+        button(class="btn btn-default" id="wemo-on") On
+        button(class="btn btn-default" id="wemo-off") Off
+    .col-md-4
+      h3 Wemo Status
+      i(id="wemo").fa.fa-3x.fa-lightbulb-o
+  script(src='/javascripts/wemo.js', type='text/javascript')

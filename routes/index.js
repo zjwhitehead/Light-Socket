@@ -4,7 +4,12 @@ module.exports = function(io) {
 
 	/* GET home page. */
 	router.get('/', function(req, res, next) {
-	  	res.render('index', { title: 'Pi Control' });
+	  	res.render('index', { title: 'Pi Light Control' });
+	});
+
+		/* GET home page. */
+	router.get('/wemo', function(req, res, next) {
+	  	res.render('wemo', { title: 'Wemo Light Control' });
 	});
 
     return router;
