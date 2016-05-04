@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .row
+    .col-md-12
+      h1 Traffic Light Control 
+      h4 Control the light and its colors
+  .row
+    .col-md-4
+      h3 LED Control
+      .checkbox
+        label 
+          input(type="checkbox" id="red-light")
+          | Red 
+      .checkbox
+        label 
+          input(type="checkbox" id="yellow-light")
+          | Yellow 
+      .checkbox
+        label 
+          input(type="checkbox" id="green-light") 
+          | Green 
+
+  script(src='/javascripts/trafficlight.js', type='text/javascript')
